@@ -1,21 +1,173 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>Class Scheduler for CSD</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+
 </head>
 
 </head>
 
 <body>
-    <!-- Creating Menu Tabs & Logo at Top Using HTML -->
     <header>
-        
+        <div>
+            <h1>Computing Software Development and Computer Science Pathways</h1>
+        </div>
     </header>
+    <div class="container py-5">
+        <div class="row">
+            <p id="paragraph_description">At Lake Washington Institute of Technology, we offer diverse pathways for
+                students to embark on their
+                journey towards a career as either a software developer or a software engineer.</p>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="p-4 bg-light custom-container">
+                    <h3>
+                        Computing and Software Development, BAS
+                        <br>
+                        <br>
+                        Computing and Software Development, AAS-T
+                        <br>
+                        <br>
+                        Certificates
+                    </h3>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-4 bg-light custom-container">
+                    <h3>
+                        <br>
+                        <br>
+                        Computer Science DTA/MRP
+                        <br>
+                        <br>
+                        Computer Science, BS
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="row py-5">
+            <p id="paragraph_description">
+                Share your academic background and goals. By answering the following questions, you allow us to better
+                understand your unique <br>situation, enabling us to guide you toward the right educational journey for
+                you.
+                <br>
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p class="question-head">What are your priorities?</p>
+            </div>
+            <div class="col-6"></div>
+        </div>
+        <div class="row custom-row">
+            <div class="col-md-4 text-center">
+                <p class="question-choice">Priority 1</p>
+            </div>
+            <div class="col-md-8">
+                <select class="form-select" id="priority1">
+                    <option selected>Length of the course taken</option>
+                    <option>One of the CSD careers</option>
+                    <option>Transfer to University</option>
+                    <option>Expand upon education (already have credits)</option>
+                    <option>Expand upon education (already have work experience in CSD)</option>
+                </select>
+            </div>
+        </div>
+        <div class="row custom-row">
+            <div class="col-md-4 text-center">
+                <p class="question-choice">Priority 2</p>
+            </div>
+            <div class="col-md-8">
+                <select class="form-select" id="priority2">
+                    <option selected>Length of the course taken</option>
+                    <option>One of the CSD careers</option>
+                    <option>Transfer to University</option>
+                    <option>Expand upon education (already have credits)</option>
+                    <option>Expand upon education (already have work experience in CSD)</option>
+                    <option>No other priorities for class searching</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p class="question-head">What is your background?</p>
+            </div>
+            <div class="col-6"></div>
+        </div>
+        <div class="row custom-row">
+            <div class="col-md-4 text-center">
+                <p class="question-choice">Do you have 90 credits?</p>
+            </div>
+            <div class="col-md-8">
+                <select class="form-select" id="priority1">
+                    <option selected>Yes</option>
+                    <option>No</option>
+                </select>
+            </div>
+        </div>
+        <div class="row custom-row">
+            <div class="col-md-4 text-center">
+                <p class="question-choice">Do you have prior work experience in tech?</p>
+            </div>
+            <div class="col-md-8">
+                <select class="form-select" id="priority2">
+                    <option selected>Yes</option>
+                    <option>No</option>
+                </select>
+            </div>
+        </div>
+        <div class="row custom-row">
+            <div class="col-md-4 text-center">
+                <p class="question-choice">Desired time to finish?</p>
+            </div>
+            <div class="col-md-8">
+                <select class="form-select" id="priority2">
+                    <option selected>1 year or less</option>
+                    <option>2 years</option>
+                    <option>Over 2 years</option>
+                </select>
+            </div>
+        </div>
+        <div class="row custom-row">
+            <div class="col-md-4 text-center">
+                <p class="question-choice">Career goal</p>
+            </div>
+            <div class="col-md-8">
+                <select class="form-select" id="priority2">
+                    <option selected>Computer Science Career</option>
+                    <option>Software Developer</option>
+                    <option>Web Development</option>
+                </select>
+            </div>
+        </div>
+        <div class="row custom-row">
+            <div class="col-md-4 text-center">
+                <p class="question-choice">Do you want to transfer to University after finishing the program?</p>
+            </div>
+            <div class="col-md-8">
+                <select class="form-select" id="priority2">
+                    <option selected>Yes</option>
+                    <option>No</option>
+                </select>
+            </div>
+        </div>
+        <button id="submit" onclick="results()">
+            submit
+        </button>
+    </div>
 
-   
+    <script src="script.js" language="javascript"></script>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
