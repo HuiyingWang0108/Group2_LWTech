@@ -2,6 +2,7 @@
 :root {
     --dark-blue: rgb(0, 95, 131);
     --font-size: 16px;
+    --font-big-size:30px;
     --border-radius: 16px;
   }
 header {
@@ -38,4 +39,10 @@ header {
 }
 .custom-row {
     padding: 30px;
+}
+#submit {
+    width: fit-content;
+    background-color: var(--dark-blue);
+    color: white;
+    font-size: var(--font-big-size);
 }
