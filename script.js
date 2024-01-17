@@ -180,3 +180,12 @@ function results() {
 
     }
 }
+
+function sendMail() {
+    var link = "mailto:S-Rowan.Conway@lwtech.edu"
+        //  + "?cc=myCCaddress@example.com"
+        + "?subject=" + encodeURIComponent("Student Help Request")
+        + "&body=" + encodeURIComponent(document.getElementById('myText').value);
+
+    window.location.href = link;
+}
