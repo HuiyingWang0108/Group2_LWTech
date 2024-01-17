@@ -76,3 +76,6 @@ h3 {
 #myText{
     width: fit-content;
 }
+.form-select {
+    width: fit-content;
+}
