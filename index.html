@@ -21,7 +21,7 @@
     </header>
     <div class="container py-5">
         <div class="row">
-            <p id="paragraph_description">At Lake Washington Institute of Technology, we offer diverse pathways for
+            <p class="paragraph_description">At Lake Washington Institute of Technology, we offer diverse pathways for
                 students to embark on their
                 journey towards a career as either a software developer or a software engineer.</p>
         </div>
@@ -53,7 +53,7 @@
             </div>
         </div>
         <div class="row py-5">
-            <p id="paragraph_description">
+            <p class="paragraph_description">
                 Share your academic background and goals. By answering the following questions, you allow us to better
                 understand your unique <br>situation, enabling us to guide you toward the right educational journey for
                 you.
@@ -162,6 +162,27 @@
             <button id="submit" onclick="results()">
                 submit
             </button>
+        </div>
+        <div class="row custom-recommend-program">
+            <p class="paragraph_description">Our recommended program(s) based on your answers above</p>
+            <div class="container custom-option">
+                <p class="paragraph_description">Option 1</p>
+                <p class="paragraph_description">Recommend degree: <span id="recommendedDegree">...</span><br><a
+                        href="https://catalog.lwtech.edu/content.php?catoid=15&navoid=825"><span id="link"></span></a>
+                </p>
+                <br>
+                <p class="paragraph_description">Other options: <span id="otherOptions">...</span><br><a
+                        href="https://catalog.lwtech.edu/content.php?catoid=15&navoid=825"><span id="link"></span></a>
+                </p>
+                <br>
+            </div>
+            <p class="paragraph_description">We are more than happy to talk to you if you have further questions. Please
+                contact our admission coach</p>
+            <div class="container">
+                <textarea id="myText"></textarea><br>
+                <button id="sendEmail" onclick="sendMail(); return false">Email Admission Coach</button>
+            </div>
+
         </div>
 
     </div>
