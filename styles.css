@@ -28,6 +28,7 @@ header {
 .custom-container {
 	height: 350px;
     border-radius: var(--border-radius);
+    margin: 10px;
 }
 .question-head {
     padding: 12px 13px;
