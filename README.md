@@ -16,6 +16,7 @@ This is the start version for the group 2 react app.\
 ### `UML Diagram`
 
 Below is the UML diagram:\
+![UML Diagram](https://github.com/HuiyingWang0108/Group2_LWTech/blob/jojo-react-app/public/images/UML%20Diagram.png)
 Open (http://localhost:3000](https://lucid.app/lucidchart/78385fee-9164-4439-a9ad-c9e5b44cc924/edit?viewport_loc=-567%2C-60%2C2857%2C1256%2CHWEp-vi-RSFO&invitationId=inv_95a2e272-9ef4-49b8-9ccf-0987260a3d57) to view it in the browser.
 
 This is the start UML for the group 2 react app based on the Classes.json and Degrees.json.\
