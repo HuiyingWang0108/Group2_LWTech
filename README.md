@@ -1,19 +1,66 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## `steps:`
 
-## Available Scripts
+### `step1, Install Node.js and npm:`
 
-In the project directory, you can run:
+Make sure you have Node.js and npm (Node Package Manager) installed on your machine. You can download them from https://nodejs.org/.
 
-### `npm start`
+### `step2, Install Create React App (CRA):`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+npm install -g create-react-app
+```
 
-This is the start version for the group 2 react app.\
+### `step3, Create a new React app with TypeScript:`
 
-### `UML Diagram`
+Change your working directory to the newly created app folder:
+```
+npx create-react-app my-ts-app --template typescript
+```
+
+### `step4, Create a new React app with TypeScript:`
+
+```
+cd my-ts-app
+```
+
+### `step5, Start the development server:`
+
+```
+npm start
+```
+
+### `step6, Personality our own react app:`
+
+This is the start version for the group 2 react app. I added debugger so changed tsconfig.json & launch.json\
+
+tsconfig.json:
+
+```
+    "noEmit": false,
+    "sourceMap": true
+```
+
+launch.json:
+
+```
+    {
+      "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "my-group2-react-app",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}"
+  
+        }
+        ]
+      }
+```
+
+
+#### `UML Diagram`
 
 Below is the UML diagram:\
 <img src="https://github.com/HuiyingWang0108/Group2_LWTech/blob/jojo-react-app/public/images/UML%20Diagram.png" width="50%">
