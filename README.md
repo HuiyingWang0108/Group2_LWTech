@@ -59,6 +59,40 @@ launch.json:
       }
 ```
 
+# How to use this repositories:
+
+## `steps:`
+
+### `step1, make sure you have installed Node.js and npm:`
+
+```
+node -v
+npm -v
+
+```
+
+### `step2, git clone:`
+
+```
+git clone https://github.com/HuiyingWang0108/Group2_LWTech
+```
+
+### `step3, Install react-scripts:`
+
+```
+cd Group2_LWTech
+git branch -a
+git checkout -b jojo-react-app
+npm install react-scripts --save-dev
+
+```
+
+### `step4, start:`
+
+```
+npm start
+
+```
 
 #### `UML Diagram`
 
