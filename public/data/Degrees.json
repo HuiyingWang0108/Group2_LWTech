@@ -1,0 +1,250 @@
+[
+    {
+        "degreeId": 1,
+        "degreeName": "Web Development, Certificate of Completion",
+        "quarters":
+        [
+            {
+                "quarter": 1,
+                "classes": [{ "classId": 1, "sub": []}]
+            },
+            {
+                "quarter": 2,
+                "classes": [{"classId": 2, "sub": []}]
+            },
+            {
+                "quarter": 3,
+                "classes": [{"classId": 3, "sub": []}]
+            }
+        ]
+    },
+    {
+        "degreeId": 2,
+        "degreeName": "C++/C# Programmer, Certificate of Completion",
+        "quarters": [
+            {
+                "quarter": 1,
+                "classes": [{ "classId": 6, "sub": []}]
+            },
+            {
+                "quarter": 2,
+                "classes": [{ "classId": 7, "sub": []}]
+            },
+            {
+                "quarter": 3,
+                "classes": [{ "classId": 8, "sub": []}]
+            }
+
+        ]
+    },
+    {
+        "degreeId": 3,
+        "degreeName": "Web Applications Development, Certificate of Proficiency",
+        "quarters": 
+        [
+            {
+                "quarter": 1,
+                "classes": [{ "classId": 9, "sub": []},{ "classId": 1, "sub": []},{ "classId": 10, "sub": [73]}]
+            },
+            {
+                "quarter": 2,
+                "classes": [{ "classId": 5, "sub": []},{ "classId": 2, "sub": []},{ "classId": 3, "sub": []},{ "classId": 11, "sub": [77]}]
+            },
+            {
+                "quarter": 3,
+                "classes": [{ "classId": 12, "sub": []},{ "classId": 8, "sub": []},{ "classId": 13, "sub": []},{ "classId": 14, "sub": []}]
+            },
+            {
+                "quarter": 4,
+                "classes": [{ "classId": 15, "sub": []},{ "classId": 19, "sub": []},{ "classId": 16, "sub": [43]}]
+            }
+
+        ]  
+    },
+    {
+        "degreeId": 4,
+        "degreeName": "Software Development, Certificate of Proficiency",
+        "quarters": 
+        [
+            {
+                "quarter": 1,
+                "classes": [{ "classId": 9, "sub": []},{ "classId": 1, "sub": []},{ "classId": 10, "sub": [73]}]
+            },
+            {
+                "quarter": 2,
+                "classes": [{ "classId": 5, "sub": []},{ "classId": 12, "sub": []},{ "classId": 11, "sub": [77]}]
+            },
+            {
+                "quarter": 3,
+                "classes": [{ "classId": 6, "sub": []},{ "classId": 8, "sub": []},{ "classId": 14, "sub": []}]
+            },
+            {
+                "quarter": 4,
+                "classes": [{ "classId": 7, "sub": []},{ "classId": 15, "sub": []},{ "classId": 17, "sub": []}]
+            },
+            {
+                "quarter": 5,
+                "classes": [{ "classId": 18, "sub": []},{ "classId": 19, "sub": []}]
+            }
+
+        ] 
+    },
+    {
+        "degreeId": 5,
+        "degreeName": "Computing and Software Development, AAS-T",
+        "quarters": 
+        [
+            {
+                "quarter": 1,
+                "classes": [{ "classId": 9, "sub": []},{ "classId": 1, "sub": []},{ "classId": 44, "sub": []}]
+            },
+            {
+                "quarter": 2,
+                "classes": [{ "classId": 5, "sub": []},{ "classId": 2, "sub": []},{ "classId": 12, "sub": []}]
+            },
+            {
+                "quarter": 3,
+                "classes": [{ "classId": 6, "sub": []},{ "classId": 15, "sub": []},{ "classId": 20, "sub": [80]}]
+            },
+            {
+                "quarter": 4,
+                "classes": [{ "classId": 21, "sub": [78]},{ "classId": 22, "sub": [79]},{ "classId": 10, "sub": [73]}]
+            },
+            {
+                "quarter": 5,
+                "classes": [{ "classId": 18, "sub": []},{ "classId": 3, "sub": []},{ "classId": 7, "sub": []}]
+            },
+            {
+                "quarter": 6,
+                "classes": [{"classId": 8, "sub": []},{"classId": 23, "sub": [45]},{"classId": 19, "sub": []},{"classId": 46, "sub": [47,48]}]
+            }
+
+        ] 
+        
+    },
+    {
+        "degreeId": 6,
+        "degreeName": "Associate in Computer Science, Direct Transfer Agreement/Major Related Program (DTA/MRP)",
+        "quarters": 
+        [
+            {
+                "quarter": 1,
+                "classes": [{"classId": 44, "sub": []},{"classId": 25, "sub": []},{"classId": 9, "sub": []}]
+            },
+            {
+                "quarter": 2,
+                "classes": [{"classId": 5, "sub": []},{"classId": 26, "sub": []},{"classId": 27, "sub": []}]
+            },
+            {
+                "quarter": 3,
+                "classes": [{"classId": 6, "sub": []},{"classId": 10, "sub": []},{"classId": 28, "sub": [49]}]
+            },
+            {
+                "quarter": 4,
+                "classes": [{"classId": 29, "sub": []},{"classId": 30, "sub": []},{"classId": 27, "sub": []},{"classId": 31, "sub": []}]
+            },
+            {
+                "quarter": 5,
+                "classes": [{"classId": 32, "sub": []},{"classId": 50, "sub": []},{"classId": 27, "sub": []},{"classId": 33, "sub": []}]
+            },
+            {
+                "quarter": 6,
+                "classes": [{"classId": 14, "sub": [51,52]},{"classId": 35, "sub": [53,54,55]},{"classId": 36, "sub": [54]}]
+            }
+
+        ] 
+        
+    },
+    {
+        "degreeId": 7,
+        "degreeName": "Information Technology: Computing and Software Development, BAS",
+        "quarters": 
+        [
+            {
+                "quarter": 0,
+                "classes": [{"classId": 44, "sub": []},{"classId": 37, "sub": []},{"classId": 38, "sub": []},{"classId": 56, "sub": []},{"classId": 6, "sub": []}]
+            },
+            {
+                "quarter": 1,
+                "classes": [{"classId": 2, "sub": []},{"classId": 12, "sub": []},{"classId": 15, "sub": [57]},{"classId": 25, "sub": []},{"classId": 27, "sub": []},{"classId": 58, "sub": []}]
+            },
+            {
+                "quarter": 2,
+                "classes": [{"classId": 59, "sub": []},{"classId": 60, "sub": []},{"classId": 55, "sub": []}]
+            },
+            {
+                "quarter": 3,
+                "classes": [{"classId": 61, "sub": []},{"classId": 62, "sub": []},{"classId": 63, "sub": []}]
+            },
+            {
+                "quarter": 4,
+                "classes": [{"classId": 64, "sub": []},{"classId": 65, "sub": []},{"classId": 14, "sub": []}]
+            },
+            {
+                "quarter": 5,
+                "classes": [{"classId": 66, "sub": []},{"classId": 67, "sub": []},{"classId": 22, "sub": []}]
+            },
+            {
+                "quarter": 6,
+                "classes": [{"classId": 68, "sub": []},{"classId": 69, "sub": []},{"classId": 70, "sub": []}]
+            }
+
+        ] 
+        
+    },
+    {
+        "degreeId": 8,
+        "degreeName": "Computer Science, BS",
+        "quarters": 
+        [{
+            "quarter": 1,
+            "classes": [{"classId": 71, "sub": []}, {"classId": 44, "sub": []}, {"classId": 10, "sub": [73]}]
+        },
+        {
+            "quarter": 2,
+            "classes": [{"classId": 72, "sub": [78]}, {"classId": 81, "sub": []}, {"classId": 20, "sub": []}]
+        },
+        {
+            "quarter": 3,
+            "classes": [{"classId": 51, "sub": [14]},{"classId": 56, "sub": [49]},{"classId": 50, "sub": [73]}]
+        },
+        {
+            "quarter": 4,
+            "classes": [{"classId": 74, "sub": []},{"classId": 9, "sub": []},{"classId": 22, "sub": []}]
+        },
+        {
+            "quarter": 5,
+            "classes": [{"classId": 5, "sub": [14]},{"classId": 75, "sub": []},{"classId": 76, "sub": [79]}]
+        },
+        {
+            "quarter": 6,
+            "classes": [{"classId": 6, "sub": []},{"classId": 7, "sub": []},{"classId": 82, "sub": []},{"classId": 83, "sub": []}]
+        },
+        {
+            "quarter":7,
+            "classes": [{"classId": 84, "sub": []},{"classId": 85, "sub": []},{"classId": 86, "sub": []},{"classId": 87, "sub": []}]
+        },
+        {
+            "quarter":8,
+            "classes": [{"classId": 88, "sub": []},{"classId": 89, "sub": []},{"classId": 33, "sub": [78]}]
+        },
+        {
+            "quarter":9,
+            "classes": [{"classId": 90, "sub": []},{"classId": 91, "sub": []},{"classId": 92, "sub": []},{"classId": 60, "sub": []}]
+        },
+        {
+            "quarter":10,
+            "classes": [{"classId": 93, "sub": []},{"classId": 94, "sub": []},{"classId": 95, "sub": []},{"classId": 96, "sub": []}]
+        },
+        {
+            "quarter":11,
+            "classes": [{"classId": 97, "sub": []},{"classId": 98, "sub": []},{"classId": 66, "sub": [99]}]
+        },
+        {
+            "quarter":12,
+            "classes": [{"classId": 100, "sub": []},{"classId": 101, "sub": []},{"classId": 68, "sub": [99]}]
+        }
+
+    ]      
+    }
+]
