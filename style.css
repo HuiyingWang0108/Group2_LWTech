@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+body {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+
+header {
+    padding: 0.5px;
+    background-color: rgb(64, 104, 176);
+    color: white;
+}
+
+.paths {
+    display: flex;
+    padding-top: 20px;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.basicText {
+    background-color:rgb(135, 160, 208);
+    color: white;
+    padding: 10px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    border-radius: 10px;
+}
+
+.degrees {
+    background-color:rgb(135, 160, 208);
+    color: white;
+    border-radius: 10px;
+    flex: 1;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+}
+
+.paragraph {
+    background-color:rgb(64, 104, 176);
+    color: white;
+    border-radius: 10px;
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+    padding: 1px;
+}
+
+.dropdownBox {
+    padding-bottom: 5px;
+    padding-top: 1px;
+    background-color: rgb(165, 186, 224);
+    color: white;
+    border-radius: 10px;
+    width: 80%;
+    margin: auto;
+}
+
+input, button {
+    background-color: rgb(64, 104, 176);
+    color: white;
+    font-size: large;
+    border-radius: 10px;
+    height: 50px;
+    width: 150px;
+}
+
+h2 span, h4 span, label {
+    
+    background-color: rgb(64, 104, 176);
+    border-radius: 10px;
+    padding: 7px;
+}
+
+textarea {
+    margin-top: 10px;
+}

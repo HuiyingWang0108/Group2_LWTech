@@ -1,21 +1,326 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+    <head>
+        <meta charset = "UTF-8">
+        <meta name = "viewport" content = "width=device-width, initial-scale=1">
+        <title>Assignment 1</title>
+        <link href = "style.css" rel = "stylesheet" type = "text/css">
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
-</head>
+    <body>
+        <header>
+            <h1>Computing Software Development and Computer Science Pathways</h1>
+        </header>
 
-</head>
+        <div class = "paths">
+        <div class = basicText>
+        <p>At Lake Washington Institute of Technology, we offer 
+            diverse pathways for students to embark on their journey towards a career 
+            as either a software developer or a software engineer.
+        </p>
+        </div>
 
-<body>
-    <!-- Creating Menu Tabs & Logo at Top Using HTML -->
-    <header>
+        <div class = "degrees">
+            <h3>
+            - Computing and Software Development, BAS<br>
+            - Computing and Software Development, AAS-T<br>
+            - Certificates<br>
+            - Computer Science DTA/MRP<br>
+            - Computer Science, BS
+            </h3>
+        </div>
+        </div>
+
         
-    </header>
 
-   
-</body>
+            <div class = "paragraph">
+            <p>Share your academic background and goals. By answering the 
+                following questions, you allow us to better understand your unique situation, 
+                enabling us to guide you toward the right educational journey for you.
+            </p>
+            </div>
 
+            <div class = "dropdownBox">
+            <h2><span>What are your priorities?</span></h2>
+            <label>Priority 1</label>
+            <select name = "priority1" id = "priority1">
+                <optgroup>
+                    <option value = "Length of the course taken">Length of the course taken</option>
+                    <option value = "One of the CSD careers">One of the CSD careers</option>
+                    <option value = "Transfer to University">Transfer to University</option>
+                    <option value = "Expand upon education (already have credits)">Expand upon education (already have credits)</option>
+                    <option value = "Expand upon eduction (alreadt have work experience in CSD)">Expand upon eduction (alreadt have work experience in CSD)</option>
+                </optgroup>
+            </select>
+            <br><br>
+            <label>Priority 2</label>
+            <select name = "priority2" id = "priority2">
+                <optgroup>
+                    <option value = "Length of the course taken">Length of the course taken</option>
+                    <option value = "One of the CSD careers">One of the CSD careers</option>
+                    <option value = "Transfer to University">Transfer to University</option>
+                    <option value = "Expand upon education (already have credits)">Expand upon education (already have credits)</option>
+                    <option value = "Expand upon eduction (alreadt have work experience in CSD)">Expand upon eduction (alreadt have work experience in CSD)</option>
+                    <option value = "No other priorities for class searching">No other priorities for class searching</option>
+                </optgroup>
+            </select>
+            
+             
+            <h2><span>What is your background?</span></h2>
+            <label>Do you have 90 credits?</label>
+            <select name = "credits" id = "credits">
+                <optgroup>
+                    <option value = "Yes">Yes</option>
+                    <option value = "No">No</option>
+                </optgroup>
+            </select>
+            <br><br>
+            <label>Do you have prior work experience in tech?</label>
+            <select name = "experience" id = "experience">
+                <optgroup>
+                    <option value = "Yes">Yes</option>
+                    <option value = "No">No</option>
+                </optgroup>
+            </select>
+            <br><br>
+            <label>Desired time to finish?</label>
+            <select name = "finishTime" id = "finishTime">
+                <optgroup>
+                    <option value = "1 year or less">1 year or less</option>
+                    <option value = "2 years">2 years</option>
+                    <option value = "Over 2 years">Over 2 years</option>
+                </optgroup>
+            </select>
+            <br><br>
+            <label>Career goal</label>
+            <select name = "careerGoal" id = "careerGoal">
+                <optgroup>
+                    <option value = "Computer Science Career">Computer Science Career</option>
+                    <option value = "Software Developer">Software Developer</option>
+                    <option value = "Web Development">Web Development</option>
+                </optgroup>
+            </select>
+            <br><br>
+            <label>Do you want to transfer to University after finishing the program?</label>
+            <select name = "transfer" id = "transfer">
+                <optgroup>
+                    <option value = "Yes">Yes</option>
+                    <option value = "No">No</option>
+                </optgroup>
+            </select>
+            <br><br>
+            <input type = "submit" onclick="results()">
+        </div>
+
+        <div class = "dropdownBox">
+            <div id="paragraph_description">Our recommended program(s) based on your answers above</div>
+					<br>
+					<div id="rec4">
+						<p>Recommend degree: <span id="recommendedText">...</span><br><a
+								href="https://catalog.lwtech.edu/content.php?catoid=15&navoid=825"><span
+									id="link"></span></a></p>
+
+						<br>
+						<p>Other options: <span id="otherOption1">...</span> <span id="otherOption2"></span></p>
+					</div>
+					<br>
+					<br>
+					<div id="paragraph_description"
+						style="color: #005F83; font-size: 16px; font-family: Arial, Helvetica, sans-serif; font-weight: 700; line-height: 20px; letter-spacing: 0.32px; word-wrap: break-word">
+						We are more than happy to talk to you if you have further questions. Please contact our
+						admission coach.</div>
+					<textarea id="myText" rows = "4" cols = "50">
+	                </textarea>
+					<br><button id="email_button" onclick="sendMail(); return false">Email Admission Coach</button>
+				</div>
+			</div>
+		</div>
+        </div>
+
+
+        <script>
+
+			var credits;
+			var experience;
+			var finishTime;
+			var careerGoal;
+			var transfer;
+
+			function sendMail() {
+				var link = "mailto:S-mark.markovets@lwtech.edu"
+					+ "?subject=" + encodeURIComponent("Student Help Request")
+					+ "&body=" + encodeURIComponent(document.getElementById('myText').value);
+
+				window.location.href = link;
+			}
+
+			function results() {
+				NinetyCredit = document.getElementById("credits").value;
+				previousWork = document.getElementById("experience").value;
+				timeGoal = document.getElementById("finishTime").value;
+				careerPlan = document.getElementById("careerGoal").value;
+				university = document.getElementById("transfer").value;
+
+				// Priority 1
+				priority1 = document.getElementById("priority1").value;
+				if (priority1 == "Length of the course taken") {
+					if (timeGoal == "1 year or less") {
+						document.getElementById("recommendedText").innerHTML = "Certificates";
+						document.getElementById("link").innerHTML = "Link";
+					}
+					else if (timeGoal == "2 years") {
+						if (NinetyCredit == "yes") {
+							document.getElementById("recommendedText").innerHTML = "Computing and Software Development, BAS"
+							document.getElementById("link").innerHTML = "Link";
+						}
+						else {
+							document.getElementById("recommendedText").innerHTML = "Computing and Software Development, AAS-T";
+							document.getElementById("link").innerHTML = "Link";
+						}
+					}
+					else {
+						document.getElementById("recommendedText").innerHTML = "Computer Science DTA/MRP" + ", " + "Computer Science, BS";
+						document.getElementById("link").innerHTML = "Link";
+					}
+				}
+				else if (priority1 == "One of the CSD careers") {
+					if (careerPlan == "Computer Science Career") {
+						document.getElementById("recommendedText").innerHTML = "Computer Science DTA/MRP" + ", " + "Computer Science, BS";
+						document.getElementById("link").innerHTML = "Link";
+					}
+					else if (careerPlan == "Software Developer") {
+						document.getElementById("recommendedText").innerHTML = "Computing and Software Development, BAS" + ", " + "Computing and Software Development, AAS-T";
+						document.getElementById("link").innerHTML = "Link";
+					}
+					else {
+						document.getElementById("recommendedText").innerHTML = "Certificates";
+						document.getElementById("link").innerHTML = "Link";
+					}
+				}
+				else if (priority1 == "Transfer to University") {
+					if (university == "yes") {
+						document.getElementById("recommendedText").innerHTML = "Computer Science DTA/MRP" + ", " + "Computing and Software Development, AAS-T";
+						document.getElementById("link").innerHTML = "Link";
+					}
+					else {
+						document.getElementById("recommendedText").innerHTML = "Computing and Software Development, BAS" + ", " + "Computer Science, BS";
+						document.getElementById("link").innerHTML = "Link";
+					}
+				}
+				else if (priority1 == "Expand upon education(already have credits)") {
+					if (NinetyCredit == "yes") {
+						document.getElementById("recommendedText").innerHTML = "Computing and Software Development, BAS";
+						document.getElementById("link").innerHTML = "Link";
+					}
+					else {
+						document.getElementById("recommendedText").innerHTML = "Computer Science DTA/MRP" + ", " + "Computing and Software Development, AAS-T";
+						document.getElementById("link").innerHTML = "Link";
+					}
+				}
+				else {
+					if (previousWork == "yes") {
+						document.getElementById("recommendedText").innerHTML = "Certificates";
+						document.getElementById("link").innerHTML = "Link";
+					}
+					else {
+						document.getElementById("recommendedText").innerHTML = "Computer Science DTA/MRP" + ", " + "Computing and Software Development, AAS-T";
+						document.getElementById("link").innerHTML = "Link";
+					}
+				}
+
+
+				// Priority 2
+				priority2 = document.getElementById("priority2").value;
+				if (priority2 == "Length of the course taken") {
+					if (timeGoal == "1 year or less") {
+						if (!document.getElementById("recommendedText").innerHTML.includes("Certificates")) {
+							document.getElementById("otherOption1").innerHTML = "Certificates"//+", ";
+						}
+					}
+					else if (timeGoal == "2 years") {
+						if (!document.getElementById("recommendedText").innerHTML.includes("Certificates")) {
+							document.getElementById("otherOption1").innerHTML = "Certificates";
+						}
+						if (!document.getElementById("recommendedText").innerHTML.includes("Computing and Software Development, AAS-T"))
+							document.getElementById("otherOption2").innerHTML = ", Computing and Software Development, AAS-T";
+					}
+					else {
+						if (!document.getElementById("recommendedText").innerHTML.includes("Computing and Software Development, BAS")) {
+							document.getElementById("otherOption1").innerHTML = "Computing and Software Development, BAS";
+						}
+						if (!document.getElementById("recommendedText").innerHTML.includes("Computer Science DTA/MRP"))
+							document.getElementById("otherOption2").innerHTML = ", Computer Science DTA/MRP";
+					}
+				}
+				else if (priority2 == "One of the CSD careers") {
+					if (careerPlan == "Computer Science Career") {
+						if (document.getElementById("recommendedText").innerHTML.includes("Computer Science, BS")) {
+							document.getElementById("otherOption1").innerHTML = "Computer Science, BS";
+						}
+						if (!document.getElementById("recommendedText").innerHTML.includes("Computer Science DTA/MRP"))
+							document.getElementById("otherOption2").innerHTML = ", Computer Science DTA/MRP";
+					}
+					else if (careerPlan == "Software Developer") {
+						if (!document.getElementById("recommendedText").innerHTML.includes("Computing and Software Development, BAS"))
+							document.getElementById("otherOption1").innerHTML = "Computing and Software Development, BAS";
+
+						if (!document.getElementById("recommendedText").innerHTML.includes("Computing and Software Development, AAS-T"))
+							document.getElementById("otherOption2").innerHTML = ", Computing and Software Development, AAS-T";
+					}
+					else {
+						if (!document.getElementById("recommendedText").innerHTML.includes("Certificates"))
+							document.getElementById("otherOption1").innerHTML = "Certificates"//+", ";
+					}
+				}
+				else if (priority2 == "Transfer to University") {
+					if (university == "yes") {
+						if (!document.getElementById("recommendedText").innerHTML.includes("Computer Science DTA/MRP"))
+							document.getElementById("otherOption1").innerHTML = "Computer Science DTA/MRP" + ", ";
+
+						if (!document.getElementById("recommendedText").innerHTML.includes("Computing and Software Development, AAS-T"))
+							document.getElementById("otherOption2").innerHTML = "Computing and Software Development, AAS-T";
+					}
+					else {
+						if (!document.getElementById("recommendedText").innerHTML.includes("Computing and Software Development, BAS"))
+							document.getElementById("otherOption1").innerHTML = "Computing and Software Development, BAS" + ", ";
+
+						if (!document.getElementById("recommendedText").innerHTML.includes("Computer Science, BS"))
+							document.getElementById("otherOption2").innerHTML = "Computer Science, BS";
+					}
+				}
+				else if (priority2 == "Expand upon education(already have credits)") {
+					if (NinetyCredit == "yes") {
+						if (!document.getElementById("recommendedText").innerHTML.includes("Computing and Software Development, BAS"))
+							document.getElementById("otherOption1").innerHTML = "Computing and Software Development, BAS" + ", ";
+
+						if (!document.getElementById("recommendedText").innerHTML.includes("Computer Science, BS"))
+							document.getElementById("otherOption2").innerHTML = "Computer Science, BS" + ", " + "Certificates";
+					}
+					else {
+						if (!document.getElementById("recommendedText").innerHTML.includes("Computing and Software Development, AAS-T"))
+							document.getElementById("otherOption1").innerHTML = "Computing and Software Development, AAS-T" + ", ";
+
+						if (!document.getElementById("recommendedText").innerHTML.includes("Computer Science DTA/MRP"))
+							document.getElementById("otherOption2").innerHTML = "Computer Science DTA/MRP";
+					}
+				}
+				else if (priority2 == "Expand upon education(already have work experience in CSD)") {
+					if (previousWork == "yes") {
+						if (!document.getElementById("recommendedText").innerHTML.includes("Certificates"))
+							document.getElementById("otherOption1").innerHTML = "Certificates" + ", ";
+
+						if (!document.getElementById("recommendedText").innerHTML.includes("Computing and Software Development, BAS"))
+							document.getElementById("otherOption2").innerHTML = "Computing and Software Development, BAS" + ", " + "Computing and Software Development, AAS-T";
+					}
+					else {
+						if (!document.getElementById("recommendedText").innerHTML.includes("Computer Science DTA/MRP"))
+							document.getElementById("otherOption1").innerHTML = "Computer Science DTA/MRP" + ", ";
+
+						if (!document.getElementById("recommendedText").innerHTML.includes("Computer Science, BS"))
+							document.getElementById("otherOption2").innerHTML = "Computer Science, BS";
+					}
+				}
+			}
+		</script>
+    </body>
 </html>
