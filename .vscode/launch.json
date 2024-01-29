@@ -1,0 +1,12 @@
+{
+    "configurations": [
+    {
+        "type": "chrome",
+        "request": "launch",
+        "name": "my-group2-react-app",
+        "url": "http://localhost:3000",
+        "webRoot": "${workspaceFolder}"
+
+    }
+    ]
+}
