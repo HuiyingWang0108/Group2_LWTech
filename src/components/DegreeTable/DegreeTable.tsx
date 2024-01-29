@@ -9,6 +9,11 @@ const DegreeTable: React.FC = () => {
   const [classes, setClasses] = useState<IClass[]>([]);
   const [degrees, setDegrees] = useState<IDegree[]>([]);
 
+  const [selectedClass, setSelectedClass] = useState<number | null>(null);
+  const handleCellClick = (classId: number) => {
+    setSelectedClass(classId);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -75,7 +80,8 @@ const DegreeTable: React.FC = () => {
                   <td key={degree.degreeId}>
                     {/* Display classes for the corresponding degree and quarter */}
                     {degree.quarters[rowIndex]?.classes.map((classItem) => (
-                      <div key={classItem.classId} className="text-truncate">
+                      <div key={classItem.classId} className={`text-truncate ${selectedClass === classItem.classId ? 'bg-success text-white' : ''}`}
+                      onClick={() => handleCellClick(classItem.classId)}>
                         {findClassNameById(classItem.classId) || 'Class not found'}
                       </div>
                     ))}
