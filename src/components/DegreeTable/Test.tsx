@@ -37,11 +37,6 @@ const DegreeTable: React.FC = () => {
     fetchData();
   }, []);
 
-  const findClassNameById = (classId: number): string | undefined => {
-    const foundClass = classes.find((classItem) => classItem.classId === classId);
-    return foundClass?.className;
-  };
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -75,9 +70,7 @@ const DegreeTable: React.FC = () => {
                   <td key={degree.degreeId}>
                     {/* Display classes for the corresponding degree and quarter */}
                     {degree.quarters[rowIndex]?.classes.map((classItem) => (
-                      <div key={classItem.classId} className="text-truncate">
-                        {findClassNameById(classItem.classId) || 'Class not found'}
-                      </div>
+                      <div key={classItem.classId}>{classItem.classId}</div>
                     ))}
                   </td>
                 ))}
