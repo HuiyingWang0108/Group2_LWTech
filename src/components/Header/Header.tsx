@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import LoginModal from '../LoginModal';
-import SignupModal from '../SignupModal';
+import LoginModal from '../LoginSignup/LoginModal';
+import SignupModal from '../LoginSignup/SignupModal';
 import "./style.css";
 
 interface HeaderProps {
