@@ -1,16 +1,16 @@
-// src/App.tsx
-
 import React from 'react';
-import ClassesList from './components/ClassesList';
-import DegreesList from './components/DegreesList';
+import DegreeTable from './components/DegreeTable/DegreeTable';
+import Form from './components/Form/Form';
+import Header from './components/Header/Header';
+import Wrapper from './components/Wrapper';
 
 const App: React.FC = () => {
   return (
-    <div>
-      <h1>React TypeScript JSON App</h1>
-      <ClassesList />
-      <DegreesList />
-    </div>
+    <Wrapper>
+      <Header title="Computing Software Development and Computer Science Pathways" />
+      <DegreeTable/>
+      <Form/>
+    </Wrapper>
   );
 };
 
