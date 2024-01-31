@@ -47,7 +47,12 @@ const DegreeTable: React.FC = () => {
   const hasPrerequisites = (classId: number): boolean => {
     // Helper function to check if a class has prerequisites
     const classItem = classes.find((item) => item.classId === classId);
-    return !!classItem?.['pre-req'] && classItem?.['pre-req'].length > 0;
+    if (!classItem) {
+      return false; // Class not found, prerequisites not met
+    }
+
+    const prerequisites = classItem['pre-req'] || [];
+    return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId));
   };
   const findPrerequisites = (classId: number): number[] => {
     const prerequisites: number[] = [];
@@ -67,35 +72,44 @@ const DegreeTable: React.FC = () => {
     return prerequisites;
   };
   const isClickable = (classId: number): boolean => {
-    if (hasPrerequisites(classId)) {
-      const prerequisites = findPrerequisites(classId);
-      return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId));
+    const classItem = classes.find((item) => item.classId === classId);
+
+    if (!classItem) {
+      return false; // Class not found, not clickable
     }
-    return true;
+
+    const hasPrereqs = classItem['pre-req'] && classItem['pre-req'].length > 0;
+
+    if (!hasPrereqs) {
+      return true; // Classes without prerequisites are always clickable
+    }
+
+    const prerequisites = findPrerequisites(classId);
+    // return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId));// Classes with prerequisites when every class is unclocked
+    return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId)) &&
+      prerequisites.length === unlockedClasses.length - 1; // Check if all prerequisites are clicked
+
   };
   const handleCellClick = (classId: number) => {
-    const prerequisites = findPrerequisites(classId);
-    setUnlockedClasses((prevUnlocked) => {
-      // Add clicked class and its prerequisites to the unlocked classes
-      const newUnlocked = Array.from(new Set([...prevUnlocked, classId, ...prerequisites]));
-      return newUnlocked;
-    });
-    setSelectedClass(classId);
+    if (isClickable(classId)) {
+      setUnlockedClasses((prevUnlocked) => {
+        // Add clicked class and its prerequisites to the unlocked classes
+        const newUnlocked = Array.from(new Set([...prevUnlocked, classId, ...findPrerequisites(classId)]));
+        return newUnlocked;
+      });
+      setSelectedClass(classId);
+    }
   };
   // const handleCellClick = (classId: number) => {
-  //   if (isClickable(classId)) {
-  //     if (unlockedClasses.includes(classId)) {
-  //       // If the class is already unlocked, clicking it again will deselect it
-  //       setUnlockedClasses([]);
-  //     } else {
-  //       // Find prerequisites and set unlocked classes
-  //       const prerequisites = findPrerequisites(classId);
-  //       setUnlockedClasses([classId, ...prerequisites]);
-  //       setSelectedClass(classId);
-  //     }
-  //   }
+  //   const prerequisites = findPrerequisites(classId);
+  //   setUnlockedClasses((prevUnlocked) => {
+  //     // Add clicked class and its prerequisites to the unlocked classes
+  //     const newUnlocked = Array.from(new Set([...prevUnlocked, classId, ...prerequisites]));
+  //     return newUnlocked;
+  //   });
+  //   setSelectedClass(classId);
   // };
-  
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -129,17 +143,17 @@ const DegreeTable: React.FC = () => {
                   <td key={degree.degreeId}>
                     {/* Display classes for the corresponding degree and quarter */}
                     {degree.quarters[rowIndex]?.classes.map((classItem) => (
-                      <div 
-                      key={classItem.classId}
-                        className={`text-truncate ${
-                          unlockedClasses.includes(classItem.classId)
-                            ? 'bg-success text-white'
-                            : hasPrerequisites(classItem.classId)
+                      <div
+                        key={classItem.classId}
+                        className={`text-truncate ${unlockedClasses.includes(classItem.classId)
+                          ? 'bg-success text-white'
+                          : hasPrerequisites(classItem.classId)
                             ? isClickable(classItem.classId)
+                              // ? 'bg-warning'
                               ? 'bg-white'
                               : 'bg-gray'
                             : 'bg-gray'
-                        }`}
+                          }`}
                         onClick={() => handleCellClick(classItem.classId)}
                       >
                         {findClassNameById(classItem.classId) || 'Class not found'}
