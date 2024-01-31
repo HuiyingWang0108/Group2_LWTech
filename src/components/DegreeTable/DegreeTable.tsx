@@ -10,9 +10,7 @@ const DegreeTable: React.FC = () => {
   const [degrees, setDegrees] = useState<IDegree[]>([]);
 
   const [selectedClass, setSelectedClass] = useState<number | null>(null);
-  const handleCellClick = (classId: number) => {
-    setSelectedClass(classId);
-  };
+  const [unlockedClasses, setUnlockedClasses] = useState<number[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +44,58 @@ const DegreeTable: React.FC = () => {
     const foundClass = classes.find((classItem) => classItem.classId === classId);
     return foundClass?.className;
   };
+  const hasPrerequisites = (classId: number): boolean => {
+    // Helper function to check if a class has prerequisites
+    const classItem = classes.find((item) => item.classId === classId);
+    return !!classItem?.['pre-req'] && classItem?.['pre-req'].length > 0;
+  };
+  const findPrerequisites = (classId: number): number[] => {
+    const prerequisites: number[] = [];
+    const findPrereqs = (id: number) => {
+      const classItem = classes.find((item) => item.classId === id);
+      if (classItem && classItem['pre-req']) {
+        classItem['pre-req'].forEach((prereqId) => {
+          if (!prerequisites.includes(prereqId)) {
+            prerequisites.push(prereqId);
+            findPrereqs(prereqId);
+          }
+        });
+      }
+    };
 
+    findPrereqs(classId);
+    return prerequisites;
+  };
+  const isClickable = (classId: number): boolean => {
+    if (hasPrerequisites(classId)) {
+      const prerequisites = findPrerequisites(classId);
+      return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId));
+    }
+    return true;
+  };
+  const handleCellClick = (classId: number) => {
+    const prerequisites = findPrerequisites(classId);
+    setUnlockedClasses((prevUnlocked) => {
+      // Add clicked class and its prerequisites to the unlocked classes
+      const newUnlocked = Array.from(new Set([...prevUnlocked, classId, ...prerequisites]));
+      return newUnlocked;
+    });
+    setSelectedClass(classId);
+  };
+  // const handleCellClick = (classId: number) => {
+  //   if (isClickable(classId)) {
+  //     if (unlockedClasses.includes(classId)) {
+  //       // If the class is already unlocked, clicking it again will deselect it
+  //       setUnlockedClasses([]);
+  //     } else {
+  //       // Find prerequisites and set unlocked classes
+  //       const prerequisites = findPrerequisites(classId);
+  //       setUnlockedClasses([classId, ...prerequisites]);
+  //       setSelectedClass(classId);
+  //     }
+  //   }
+  // };
+  
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -80,8 +129,19 @@ const DegreeTable: React.FC = () => {
                   <td key={degree.degreeId}>
                     {/* Display classes for the corresponding degree and quarter */}
                     {degree.quarters[rowIndex]?.classes.map((classItem) => (
-                      <div key={classItem.classId} className={`text-truncate ${selectedClass === classItem.classId ? 'bg-success text-white' : ''}`}
-                      onClick={() => handleCellClick(classItem.classId)}>
+                      <div 
+                      key={classItem.classId}
+                        className={`text-truncate ${
+                          unlockedClasses.includes(classItem.classId)
+                            ? 'bg-success text-white'
+                            : hasPrerequisites(classItem.classId)
+                            ? isClickable(classItem.classId)
+                              ? 'bg-white'
+                              : 'bg-gray'
+                            : 'bg-gray'
+                        }`}
+                        onClick={() => handleCellClick(classItem.classId)}
+                      >
                         {findClassNameById(classItem.classId) || 'Class not found'}
                       </div>
                     ))}

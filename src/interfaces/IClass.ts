@@ -1,7 +1,7 @@
 interface IClass {
     classId: number;
     className: string;
-    preReq: number[];
+    "pre-req": number[];
   }
   
   export default IClass;
