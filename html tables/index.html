@@ -152,7 +152,7 @@
         </tr>
         <tr class="bottom">
             <td></td>
-            <td>Technical Elective</td>
+            <td>Any Technical Elective course</td>
             <td></td>
             <td>CS 296 Computer Science Career Seminar</td>
         </tr>
@@ -301,16 +301,200 @@
 
         var cells = document.querySelectorAll('td');
 
+        var classes = [
+            { "className": "CSD 112 HTML and CSS", "classId": 1, "pre-req": [] },
+            { "className": "CSD 122 JavaScript", "classId": 2, "pre-req": [9, 1] },
+            { "className": "CSD 275 PHP Scripting", "classId": 3, "pre-req": [9, 1] },
+            { "className": "CSD 111 Computer Programming Fundamentals", "classId": 4, "pre-req": [] },
+            { "className": "CS& 141 Computer Science I Java", "classId": 5, "pre-req": [9] },
+            { "className": "CS 143 Computer Science II Java", "classId": 6, "pre-req": [5] },
+            { "className": "CSD 233 C++ Programming", "classId": 7, "pre-req": [6] },
+            { "className": "CSD 228 Programming with C#", "classId": 8, "pre-req": [5] },
+            { "className": "CSD 110 Computer Programming Fundamentals with Python", "classId": 9, "pre-req": [] },
+            { "className": "SOC& 101 Introduction to Sociology", "classId": 10, "pre-req": [] },
+            //{ "className": "MATH 99 Intermediate Algebra", "classId": 11, "pre-req": [] },
+            { "className": "CSD 138 Structured Query Language (SQL)", "classId": 12, "pre-req": [9] },
+            { "className": "DSGN 122 Image Editing", "classId": 13, "pre-req": [] },
+            { "className": "ENGL& 235 Technical Writing", "classId": 14, "pre-req": [44] },
+            { "className": "CSD 268 Quality Assurance Methodologies", "classId": 15, "pre-req": [5] },
+            { "className": "DSGN 153 Introduction to Web and Mobile Design", "classId": 16, "pre-req": [13] },
+            { "className": "CSD, CSNT, DSGN, or GAME Technical Elective course", "classId": 17, "pre-req": [] },
+            { "className": "CSD 230 Programming For Mobile Devices", "classId": 18, "pre-req": [6, 8] },
+            { "className": "CSD 297 IT Project", "classId": 19, "pre-req": [6] },
+            { "className": "MATH& 141 Pre-Calculus I", "classId": 20, "pre-req": [] },
+            { "className": "ART 102 Design I", "classId": 21, "pre-req": [] },
+            { "className": "PHYS& 114 General Physics I w/Lab", "classId": 22, "pre-req": [] },
+            { "className": "CSD 298 Technical Interview/Job Seach", "classId": 23, "pre-req": [6] },
+            { "className": "MATH& 142 Pre-Calculus II", "classId": 24, "pre-req": [20] },
+            { "className": "MATH& 151 Calculus I", "classId": 25, "pre-req": [24] },
+            { "className": "MATH& 152 Calculus II", "classId": 26, "pre-req": [25] },
+            { "className": "any Humanities course", "classId": 27, "pre-req": [] },
+            { "className": "MATH& 163 Calculus III", "classId": 28, "pre-req": [26] },
+            { "className": "PHYS& 221 Engineering Physics I with Lab", "classId": 29, "pre-req": [24] },
+            { "className": "PSYC& 100 General Psychology", "classId": 30, "pre-req": [] },
+            { "className": "MATH& 264 Calculus IV", "classId": 31, "pre-req": [28] },
+            { "className": "PHYS& 222 Engineering Physics II with Lab", "classId": 32, "pre-req": [25, 29] },
+            { "className": "PHIL& 120 Symbolic Logic", "classId": 33, "pre-req": [] },
+            //34
+            //{ "className": "Elective course (CSD 233 C++ Programming/MATH& 141 Pre-Calculus I recommended)", "classId": 35, "pre-req": [] },
+            //{ "className": "Elective course (MATH& 142 Pre-Calculus II may be used if taken previously)", "classId": 36, "pre-req": [] },
+            //{ "className": "College-level Social Science course", "classId": 37, "pre-req": [] },
+            //{ "className": "any Humanities course", "classId": 38, "pre-req": [] },
+            //39
+            //40
+            //41
+            //42
+            { "className": "DSGN 268 Introduction to Content Management Systems", "classId": 43, "pre-req": [1] },
+            { "className": "ENGL& 101 English Composition I", "classId": 44, "pre-req": [] },
+            { "className": "DSGN 290 Portfolio/Job Search", "classId": 45, "pre-req": [21] },
+            { "className": "CSD 235 Algorithms and Data Structures", "classId": 46, "pre-req": [] },
+            { "className": "CSD 294 Introduction to IoT", "classId": 47, "pre-req": [] },
+            { "className": "Any CSD, CSNT, DSGN, GAME course", "classId": 48, "pre-req": [] },
+            { "className": "MATH& 146 Introduction to Statistics", "classId": 49, "pre-req": [11] },
+            { "className": "ECON& 201 Micro Economics", "classId": 50, "pre-req": [44] },
+            { "className": "ENGL& 102 English Composition II", "classId": 51, "pre-req": [44] },
+            { "className": "CMST& 220 Introduction to Public Speaking", "classId": 52, "pre-req": [] },
+            { "className": "PHYS& 223 Engineering Physics III with Lab", "classId": 53, "pre-req": [26, 32] },
+            { "className": "BIOL& 160 General Biology with Lab", "classId": 54, "pre-req": [] },
+            { "className": "MATH 220 Linear Algebra", "classId": 55, "pre-req": [24] },
+            { "className": "Academic Course", "classId": 57, "pre-req": [] },
+            //{ "className": "Natural Sciences Course", "classId": 58, "pre-req": [] },
+            { "className": "CSD 322 Computer and Network Architecture", "classId": 59, "pre-req": [2, 12, 15] },
+            { "className": "CSD 323 Data Analytics", "classId": 60, "pre-req": [] },
+            { "className": "CSD 331 Database Modeling and Design", "classId": 61, "pre-req": [12, 55] },
+            { "className": "CSD 332 Software Project Management", "classId": 62, "pre-req": [] },
+            { "className": "CSD 335 Algorithms and Data Structures", "classId": 63, "pre-req": [6] },
+            { "className": "CSD 412 Web Application Development", "classId": 64, "pre-req": [2, 61] },
+            { "className": "CSD 415 Operating Systems Concepts", "classId": 65, "pre-req": [62] },
+            { "className": "CSD 425 Cloud Computing", "classId": 66, "pre-req": [64] },
+            { "className": "CSD 436 Algorithmic Problem Solving for Interviews", "classId": 67, "pre-req": [63] },
+            { "className": "CSD 438 Big Data Application Development", "classId": 68, "pre-req": [61, 66] },
+            { "className": "CSD 480 Capstone Project", "classId": 69, "pre-req": [] },
+            { "className": "PSYC 324 Psychology of Organizations", "classId": 70, "pre-req": [] },
+            { "className": "CS 101 Introduction to Computer Science", "classId": 71, "pre-req": [] },
+            { "className": "HUM 215 Diversity and Social Justice in America", "classId": 72, "pre-req": [44] },
+            { "className": "Any Social Sciences courses", "classId": 73, "pre-req": [] },
+            { "className": "CS 170 Linear Algebra for Data Analysis", "classId": 74, "pre-req": [] },
+            { "className": "CS 222 Computing, Data, and Society", "classId": 75, "pre-req": [] },
+            { "className": "ENVS& 101 Introduction to Environmental Science", "classId": 76, "pre-req": [] },
+            { "className": "Any college-level, transferable Quantitative Reasoning course", "classId": 77, "pre-req": [] },
+            { "className": "Any Humanities course", "classId": 78, "pre-req": [] },
+            { "className": "any Natural Science course with a lab", "classId": 79, "pre-req": [] },
+            { "className": "Any higher level course in the calculus sequence", "classId": 80, "pre-req": [] },
+            { "className": "CS 102 Computer Science Careers/Student Success", "classId": 81, "pre-req": [] },
+            { "className": "CS 243 Software Development Tools", "classId": 82, "pre-req": [] },
+            { "className": "CS 296 Computer Science Career Seminar", "classId": 83, "pre-req": [] },
+            { "className": "CS 202 Discrete Structures", "classId": 84, "pre-req": [] },
+            { "className": "CS 301 Foundations of Computer Science", "classId": 85, "pre-req": [] },
+            { "className": "CS 321 Database Systems", "classId": 86, "pre-req": [] },
+            { "className": "CS 397 Computer Science Seminar I", "classId": 87, "pre-req": [] },
+            { "className": "CS 302 Discrete Structures II", "classId": 88, "pre-req": [] },
+            { "className": "CS 333 Data Structures and Algorithms", "classId": 89, "pre-req": [] },
+            { "className": "CS 334 Data Structures & Algorithms II", "classId": 90, "pre-req": [] },
+            { "className": "CS 350 Software Engineering", "classId": 91, "pre-req": [] },
+            { "className": "CS 398 Computer Science Seminar II", "classId": 92, "pre-req": [] },
+            { "className": "CS 421 Algorithmic Problem Solving", "classId": 93, "pre-req": [] },
+            { "className": "CS 442 Principles of Computer Systems", "classId": 94, "pre-req": [] },
+            { "className": "CS 450 Security Foundations", "classId": 95, "pre-req": [] },
+            { "className": "CS 498 Computer Science Seminar III", "classId": 96, "pre-req": [] },
+            { "className": "CSD 485 Capstone Project I", "classId": 97, "pre-req": [] },
+            { "className": "CS 433 Programming Languages", "classId": 98, "pre-req": [] },
+            { "className": "Any Technical Elective course", "classId": 99, "pre-req": [] },
+            { "className": "CS 402 Statistical Methods for Testing", "classId": 100, "pre-req": [] },
+            { "className": "CS 486 Capstone Project II", "classId": 101, "pre-req": [] }
+        ];
+
+        updateCellStyles();
+
+
+
+        function getClassIdByName(className) {
+            for (var i = 0; i < classes.length; i++) {
+                if (classes[i].className === className) {
+                    return classes[i].classId;
+                }
+            }
+            return null;
+        }
+
+        function arePrerequisitesMet(classId) {
+            var prerequisites = getPrerequisites(classId);
+
+            for (var i = 0; i < prerequisites.length; i++) {
+                var prerequisiteClassId = prerequisites[i];
+                var prerequisiteCell = getCellByClassId(prerequisiteClassId);
+
+                if (!prerequisiteCell || !prerequisiteCell.classList.contains('highlight')) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function getPrerequisites(classId) {
+            for (var i = 0; i < classes.length; i++) {
+                if (classes[i].classId === classId) {
+                    return classes[i]['pre-req'] || [];
+                }
+            }
+            return [];
+        }
+
+        function getCellByClassId(classId) {
+            var cells = document.querySelectorAll('td');
+            for (var i = 0; i < cells.length; i++) {
+                if (getClassId(cells[i].textContent.trim()) === classId) {
+                    return cells[i];
+                }
+            }
+            return null;
+        }
+
+
+        function canClick(classId) {
+            var cell = getCellByClassId(classId);
+            return !cell.classList.contains('highlight') || arePrerequisitesMet(classId);
+        }
+
         cells.forEach(function (cell) {
             cell.addEventListener('click', function () {
                 var content = this.textContent.trim();
-                cells.forEach(function (cell) {
-                    if (cell.textContent.trim() === content) {
-                        cell.classList.toggle('highlight');
-                    }
-                });
+                var classId = getClassId(content);
+
+                if (canClick(classId)) {
+                    cells.forEach(function (cell) {
+                        if (cell.textContent.trim() === content) {
+                            cell.classList.toggle('highlight');
+                        }
+                    });
+                    updateCellStyles();
+                }
             });
         });
+
+        function getClassId(className) {
+            return getClassIdByName(className);
+        }
+
+        function updateCellStyles() {
+            cells.forEach(function (cell) {
+                var classId = getClassId(cell.textContent.trim());
+                var prerequisitesMet = arePrerequisitesMet(classId);
+
+                if (cell.classList.contains('highlight')) {
+                    cell.classList.remove('gray', 'white');
+                    cell.classList.add('highlight');
+                } else {
+                    cell.classList.remove('highlight', 'white', 'gray');
+                    cell.classList.add(prerequisitesMet ? 'white' : 'gray');
+                }
+            });
+        }
+
+
+
+
+
 
     </script>
 

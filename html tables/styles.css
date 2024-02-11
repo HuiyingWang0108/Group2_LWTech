@@ -22,6 +22,7 @@ td {
 
 td {
     border-right: 2px solid black;
+    background-color: gray;
 }
 
 th {
@@ -30,4 +31,12 @@ th {
 
 .highlight {
     background-color: lightgreen;
+}
+
+.white {
+    background-color: white;
+}
+
+.gray {
+    background-color: gray;
 }
