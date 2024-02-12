@@ -92,21 +92,46 @@ const DegreeTable: React.FC = () => {
 
   };
   const handleCellClick = (classId: number) => {
+    // Check if the class is already unlocked
+    const isAlreadyUnlocked = unlockedClasses.includes(classId);
+  
     if (isClickable(classId)) {
-      setUnlockedClasses((prevUnlocked) => {
-        let newUnlocked;
-        // If the class is already unlocked, remove it from the unlocked classes
-        if (prevUnlocked.includes(classId)) {
-          newUnlocked = prevUnlocked.filter((id) => id !== classId);
-        } else {
-          // Otherwise, add the clicked class and its prerequisites to the unlocked classes
-          newUnlocked = Array.from(new Set([...prevUnlocked, classId, ...findPrerequisites(classId)]));
+      if (isAlreadyUnlocked) {
+        // If the class is already unlocked, check if it has any dependents that are already unlocked
+        const dependents = degrees.flatMap((degree) =>
+          degree.quarters.flatMap((quarter) =>
+            quarter.classes.filter((classItem) => findPrerequisites(classItem.classId).includes(classId))
+          )
+        );
+  
+        const dependentAlreadyUnlocked = dependents.some((classItem) =>
+          unlockedClasses.includes(classItem.classId)
+        );
+  
+        if (dependentAlreadyUnlocked) {
+          // Show a reminder that the class cannot be unclicked
+          alert('Cannot unclick this class because it is a prerequisite for other classes that are already selected.');
+          return;
         }
-        return newUnlocked;
-      });
-      setSelectedClass(classId);
+      }
+  
+      // If the class is clickable and no dependents are already unlocked, proceed with unlocking/clicking
+      if (isAlreadyUnlocked) {
+        // If the class is already unlocked, remove it from unlocked classes
+        setUnlockedClasses((prevUnlocked) => prevUnlocked.filter((id) => id !== classId));
+      } else {
+        // If the class is not already unlocked, add it to unlocked classes
+        setUnlockedClasses((prevUnlocked) => [...prevUnlocked, classId]);
+      }
+    } else {
+      // If the class is not clickable, remove it and its prerequisites from unlocked classes
+      const removedClasses = findPrerequisites(classId).concat(classId);
+      setUnlockedClasses((prevUnlocked) => prevUnlocked.filter((id) => !removedClasses.includes(id)));
     }
+  
+    setSelectedClass(classId);
   };
+  
   
   if (loading) {
     return <div>Loading...</div>;
