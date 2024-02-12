@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import IClass from '../../interfaces/IClass';
 import IDegree from '../../interfaces/IDegree';
+import './styles.css'; // Import CSS file for styling
 
 const DegreeTable: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -11,6 +12,7 @@ const DegreeTable: React.FC = () => {
 
   const [selectedClass, setSelectedClass] = useState<number | null>(null);
   const [unlockedClasses, setUnlockedClasses] = useState<number[]>([]);
+  const [hoveredClass, setHoveredClass] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,16 +46,17 @@ const DegreeTable: React.FC = () => {
     const foundClass = classes.find((classItem) => classItem.classId === classId);
     return foundClass?.className;
   };
+
   const hasPrerequisites = (classId: number): boolean => {
-    // Helper function to check if a class has prerequisites
     const classItem = classes.find((item) => item.classId === classId);
     if (!classItem) {
-      return false; // Class not found, prerequisites not met
+      return false;
     }
 
     const prerequisites = classItem['pre-req'] || [];
     return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId));
   };
+
   const findPrerequisites = (classId: number): number[] => {
     const prerequisites: number[] = [];
     const findPrereqs = (id: number) => {
@@ -71,68 +74,68 @@ const DegreeTable: React.FC = () => {
     findPrereqs(classId);
     return prerequisites;
   };
+
   const isClickable = (classId: number): boolean => {
     const classItem = classes.find((item) => item.classId === classId);
-
     if (!classItem) {
-      return false; // Class not found, not clickable
+      return false;
     }
 
     const hasPrereqs = classItem['pre-req'] && classItem['pre-req'].length > 0;
-
     if (!hasPrereqs) {
-      return true; // Classes without prerequisites are always clickable
+      return true;
     }
 
     const prerequisites = findPrerequisites(classId);
-    // Classes with prerequisites when every class is unclocked
-    return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId))
-    // return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId)) &&
-    //   prerequisites.length === unlockedClasses.length - 1; // Check if all prerequisites are clicked
-
+    return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId));
   };
+
   const handleCellClick = (classId: number) => {
-    // Check if the class is already unlocked
     const isAlreadyUnlocked = unlockedClasses.includes(classId);
-  
     if (isClickable(classId)) {
       if (isAlreadyUnlocked) {
-        // If the class is already unlocked, check if it has any dependents that are already unlocked
         const dependents = degrees.flatMap((degree) =>
           degree.quarters.flatMap((quarter) =>
             quarter.classes.filter((classItem) => findPrerequisites(classItem.classId).includes(classId))
           )
         );
-  
         const dependentAlreadyUnlocked = dependents.some((classItem) =>
           unlockedClasses.includes(classItem.classId)
         );
-  
         if (dependentAlreadyUnlocked) {
-          // Show a reminder that the class cannot be unclicked
           alert('Cannot unclick this class because it is a prerequisite for other classes that are already selected.');
           return;
         }
       }
-  
-      // If the class is clickable and no dependents are already unlocked, proceed with unlocking/clicking
       if (isAlreadyUnlocked) {
-        // If the class is already unlocked, remove it from unlocked classes
         setUnlockedClasses((prevUnlocked) => prevUnlocked.filter((id) => id !== classId));
       } else {
-        // If the class is not already unlocked, add it to unlocked classes
         setUnlockedClasses((prevUnlocked) => [...prevUnlocked, classId]);
       }
     } else {
-      // If the class is not clickable, remove it and its prerequisites from unlocked classes
       const removedClasses = findPrerequisites(classId).concat(classId);
       setUnlockedClasses((prevUnlocked) => prevUnlocked.filter((id) => !removedClasses.includes(id)));
     }
-  
     setSelectedClass(classId);
   };
-  
-  
+
+  const getClassPrerequisitesText = (classId: number): string => {
+    const prerequisites = findPrerequisites(classId);
+    const missingPrerequisites = prerequisites.filter((prereqId) => !unlockedClasses.includes(prereqId));
+    const missingPrerequisitesText = missingPrerequisites.map((prereqId) => findClassNameById(prereqId)).join(', ');
+    return missingPrerequisitesText;
+  };
+
+  const handleMouseOver = (classId: number) => {
+    if (!unlockedClasses.includes(classId) && !isClickable(classId)) {
+      setHoveredClass(classId);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredClass(null);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -149,48 +152,48 @@ const DegreeTable: React.FC = () => {
           <thead>
             <tr>
               <th scope="col"></th>
-              {/* Loop through degrees to create table headers */}
-              {degrees.map(degree => (
-                <th key={degree.degreeId}>{degree.degreeName}
-                </th>
+              {degrees.map((degree) => (
+                <th key={degree.degreeId}>{degree.degreeName}</th>
               ))}
             </tr>
           </thead>
           <tbody style={{ height: '300px', overflowY: 'auto' }}>
-            {/* Loop through quarters to create table body */}
             {[...Array(12)].map((_, rowIndex) => (
               <tr key={rowIndex}>
                 <td>{rowIndex + 1}</td>
-                {/* Loop through degrees to create table cells */}
                 {degrees.map((degree) => (
                   <td key={degree.degreeId}>
-                    {/* Display classes for the corresponding degree and quarter */}
                     {degree.quarters[rowIndex]?.classes.map((classItem) => (
                       <div
                         key={classItem.classId}
-                        className={`text-truncate ${unlockedClasses.includes(classItem.classId)
-                          ? 'bg-success text-white'//bg-success: color is green
-                          : hasPrerequisites(classItem.classId)
-                            ? isClickable(classItem.classId)
-                              // ? 'bg-warning'
-                              ? 'bg-white'
-                              : 'bg-gray'
+                        className={`text-truncate ${
+                          unlockedClasses.includes(classItem.classId)
+                            ? 'bg-success text-white'
+                            : isClickable(classItem.classId)
+                            ? 'bg-white'
                             : 'bg-gray'
-                          }`}
+                        }`}
                         onClick={() => handleCellClick(classItem.classId)}
+                        onMouseOver={() => handleMouseOver(classItem.classId)}
+                        onMouseLeave={handleMouseLeave}
                       >
                         {findClassNameById(classItem.classId) || 'Class not found'}
+                        {hoveredClass === classItem.classId && (
+                          <div className="hover-window">
+                            <span className="text-danger">Missing prerequisites: {getClassPrerequisitesText(classItem.classId)}</span>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </td>
                 ))}
               </tr>
             ))}
-
           </tbody>
         </table>
       </div>
-    </div>);
+    </div>
+  );
 };
 
 export default DegreeTable;
