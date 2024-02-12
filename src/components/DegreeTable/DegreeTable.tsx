@@ -86,8 +86,9 @@ const DegreeTable: React.FC = () => {
 
     const prerequisites = findPrerequisites(classId);
     // Classes with prerequisites when every class is unclocked
-    return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId)) &&
-      prerequisites.length === unlockedClasses.length - 1; // Check if all prerequisites are clicked
+    return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId))
+    // return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId)) &&
+    //   prerequisites.length === unlockedClasses.length - 1; // Check if all prerequisites are clicked
 
   };
   const handleCellClick = (classId: number) => {
