@@ -12,7 +12,6 @@ const DegreeTable: React.FC = () => {
 
   const [selectedClass, setSelectedClass] = useState<number | null>(null);
   const [unlockedClasses, setUnlockedClasses] = useState<number[]>([]);
-  const [hoveredClass, setHoveredClass] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -126,24 +125,6 @@ const DegreeTable: React.FC = () => {
     return missingPrerequisitesText;
   };
 
-  const handleMouseOver = (classId: number) => {
-    if (!unlockedClasses.includes(classId) && !isClickable(classId)) {
-      setHoveredClass(classId);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredClass(null);
-  };
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   return (
     <div className="container mt-5">
       <h2>Degree with classes</h2>
@@ -172,17 +153,13 @@ const DegreeTable: React.FC = () => {
                             : isClickable(classItem.classId)
                             ? 'bg-white'
                             : 'bg-gray'
-                        }`}
+                        } hover-effect`}
                         onClick={() => handleCellClick(classItem.classId)}
-                        onMouseOver={() => handleMouseOver(classItem.classId)}
-                        onMouseLeave={handleMouseLeave}
                       >
                         {findClassNameById(classItem.classId) || 'Class not found'}
-                        {hoveredClass === classItem.classId && (
-                          <div className="hover-window">
-                            <span className="text-danger">Missing prerequisites: {getClassPrerequisitesText(classItem.classId)}</span>
-                          </div>
-                        )}
+                        <div className="hover-window">
+                          <span className="text-danger">{getClassPrerequisitesText(classItem.classId)}</span>
+                        </div>
                       </div>
                     ))}
                   </td>
