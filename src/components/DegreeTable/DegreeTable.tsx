@@ -85,7 +85,7 @@ const DegreeTable: React.FC = () => {
     }
 
     const prerequisites = findPrerequisites(classId);
-    // return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId));// Classes with prerequisites when every class is unclocked
+    // Classes with prerequisites when every class is unclocked
     return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId)) &&
       prerequisites.length === unlockedClasses.length - 1; // Check if all prerequisites are clicked
 
@@ -93,23 +93,20 @@ const DegreeTable: React.FC = () => {
   const handleCellClick = (classId: number) => {
     if (isClickable(classId)) {
       setUnlockedClasses((prevUnlocked) => {
-        // Add clicked class and its prerequisites to the unlocked classes
-        const newUnlocked = Array.from(new Set([...prevUnlocked, classId, ...findPrerequisites(classId)]));
+        let newUnlocked;
+        // If the class is already unlocked, remove it from the unlocked classes
+        if (prevUnlocked.includes(classId)) {
+          newUnlocked = prevUnlocked.filter((id) => id !== classId);
+        } else {
+          // Otherwise, add the clicked class and its prerequisites to the unlocked classes
+          newUnlocked = Array.from(new Set([...prevUnlocked, classId, ...findPrerequisites(classId)]));
+        }
         return newUnlocked;
       });
       setSelectedClass(classId);
     }
   };
-  // const handleCellClick = (classId: number) => {
-  //   const prerequisites = findPrerequisites(classId);
-  //   setUnlockedClasses((prevUnlocked) => {
-  //     // Add clicked class and its prerequisites to the unlocked classes
-  //     const newUnlocked = Array.from(new Set([...prevUnlocked, classId, ...prerequisites]));
-  //     return newUnlocked;
-  //   });
-  //   setSelectedClass(classId);
-  // };
-
+  
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -146,7 +143,7 @@ const DegreeTable: React.FC = () => {
                       <div
                         key={classItem.classId}
                         className={`text-truncate ${unlockedClasses.includes(classItem.classId)
-                          ? 'bg-success text-white'
+                          ? 'bg-success text-white'//bg-success: color is green
                           : hasPrerequisites(classItem.classId)
                             ? isClickable(classItem.classId)
                               // ? 'bg-warning'
