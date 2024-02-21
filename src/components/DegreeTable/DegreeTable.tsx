@@ -1,8 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Collapse } from 'react-bootstrap';
 import IClass from '../../interfaces/IClass';
 import IDegree from '../../interfaces/IDegree';
 import './styles.css'; // Import CSS file for styling
+
 
 const DegreeTable: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -12,6 +14,9 @@ const DegreeTable: React.FC = () => {
 
   const [selectedClass, setSelectedClass] = useState<number | null>(null);
   const [unlockedClasses, setUnlockedClasses] = useState<number[]>([]);
+  const [selectedDegree, setSelectedDegree] = useState<number | null>(null);
+  const [showCollapse, setShowCollapse] = useState(false); // State to control collapse visibility
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -88,36 +93,55 @@ const DegreeTable: React.FC = () => {
     const prerequisites = findPrerequisites(classId);
     return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId));
   };
-
-  const handleProgramClick = (degreeId: number): JSX.Element | void => {
-    console.log("test handleProgramClick")
-    const program = degrees.find((degree) => degree.degreeId === degreeId);
-    console.log(program)
-    if (!program) {
-      return; // Program not found
-    }
-  
-    const quarter0 = program.quarters.find((quarter) => quarter.quarter === 0);
-    console.log(quarter0)
-    if (quarter0) {
-      // If the program has quarter 0, list all the quarter 0 classes as prerequisites
-      const quarter0ClassNames = quarter0.classes.map((classItem) => findClassNameById(classItem.classId) || 'Class not found');
-      const listItems = quarter0ClassNames.map((className, index) => <li key={index}>{className}</li>);
-      console.log(quarter0ClassNames)
-      return (
-        <div>
-          <h3>Prerequisites for {program.degreeName}:</h3>
-          <ul>{listItems}</ul>
-        </div>
-      );
+  // Function to handle click on program header
+  const handleProgramClick = (degreeId: number): void => {
+    if (selectedDegree === degreeId) {
+      setShowCollapse(!showCollapse); // Toggle the collapse visibility if clicking the same degree again
     } else {
-      // If the program doesn't have quarter 0, unlock all classes in the program
-      // const allClasses = program.quarters.flatMap((quarter) => quarter.classes.map((classItem) => classItem.classId));
-      // setUnlockedClasses(allClasses);
+      setSelectedDegree(degreeId); // Set the selected degree
+      setShowCollapse(true); // Show the collapse
     }
-  }
-  
-  
+  };
+  // const handleProgramClick = (degreeId: number): JSX.Element | void => {
+  //   setShowCollapse(!showCollapse); // Toggle the collapse state
+  //   console.log("test handleProgramClick")
+  //   const program = degrees.find((degree) => degree.degreeId === degreeId);
+  //   console.log(program)
+  //   if (!program) {
+  //     return; // Program not found
+  //   }
+
+  //   const quarter0 = program.quarters.find((quarter) => quarter.quarter === 0);
+  //   console.log(quarter0)
+  //   if (quarter0) {
+  //     // If the program has quarter 0, list all the quarter 0 classes as prerequisites
+  //     const quarter0ClassNames = quarter0.classes.map((classItem) => findClassNameById(classItem.classId) || 'Class not found');
+  //     console.log(quarter0ClassNames)
+  //     return (
+  //       <Collapse in={true}>
+  //         <div className="collapse">
+  //           <h3>Prerequisites for {program.degreeName}:</h3>
+  //           <ul>
+  //             {quarter0ClassNames.map((className, index) => (
+  //               <li key={index}>{className}</li>
+  //             ))}
+  //           </ul>
+  //         </div>
+  //       </Collapse>
+  //     );
+  //   } else {
+  //     // If the program doesn't have quarter 0, unlock all classes in the program
+  //     // const allClasses = program.quarters.flatMap((quarter) => quarter.classes.map((classItem) => classItem.classId));
+  //     // setUnlockedClasses(allClasses);
+  //     return (
+  //       <div>
+  //         <p>No quarter 0 classes found for {program.degreeName}.</p>
+  //       </div>
+  //     );
+  //   }
+  // }
+
+
 
   const handleCellClick = (classId: number) => {
     const isAlreadyUnlocked = unlockedClasses.includes(classId);
@@ -164,8 +188,34 @@ const DegreeTable: React.FC = () => {
             <tr>
               <th scope="col"></th>
               {degrees.map((degree) => (
-                <th key={degree.degreeId}
-                  onClick={() => handleProgramClick(degree.degreeId)}>{degree.degreeName}</th>
+                <th key={degree.degreeId}>
+                  {/* Render Collapse component if the degree has quarter 0 */}
+                  {degree.quarters.some((quarter) => quarter.quarter === 0) ? (
+                    <div onClick={() => handleProgramClick(degree.degreeId)}>
+                      {degree.degreeName}
+                      <Collapse in={selectedDegree === degree.degreeId && showCollapse}>
+                        <div className="collapse">
+                          <h4>Prerequisites for {degree.degreeName}:</h4>
+                          <ul>
+                            {/* Render prerequisite classes here */}
+                            {degree.quarters
+                              .filter((quarter) => quarter.quarter === 0)
+                              .flatMap((quarter) =>
+                                quarter.classes.map((classItem) => (
+                                  <li key={classItem.classId}>{findClassNameById(classItem.classId)}</li>
+                                ))
+                              )}
+                          </ul>
+                        </div>
+                      </Collapse>
+                    </div>
+                  ) : (
+                    // Render only the degree name if it doesn't have quarter 0
+                    <div onClick={() => setSelectedDegree(degree.degreeId)}>
+                      {degree.degreeName}
+                    </div>
+                  )}
+                </th>
               ))}
             </tr>
           </thead>
