@@ -89,6 +89,36 @@ const DegreeTable: React.FC = () => {
     return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId));
   };
 
+  const handleProgramClick = (degreeId: number): JSX.Element | void => {
+    console.log("test handleProgramClick")
+    const program = degrees.find((degree) => degree.degreeId === degreeId);
+    console.log(program)
+    if (!program) {
+      return; // Program not found
+    }
+  
+    const quarter0 = program.quarters.find((quarter) => quarter.quarter === 0);
+    console.log(quarter0)
+    if (quarter0) {
+      // If the program has quarter 0, list all the quarter 0 classes as prerequisites
+      const quarter0ClassNames = quarter0.classes.map((classItem) => findClassNameById(classItem.classId) || 'Class not found');
+      const listItems = quarter0ClassNames.map((className, index) => <li key={index}>{className}</li>);
+      console.log(quarter0ClassNames)
+      return (
+        <div>
+          <h3>Prerequisites for {program.degreeName}:</h3>
+          <ul>{listItems}</ul>
+        </div>
+      );
+    } else {
+      // If the program doesn't have quarter 0, unlock all classes in the program
+      // const allClasses = program.quarters.flatMap((quarter) => quarter.classes.map((classItem) => classItem.classId));
+      // setUnlockedClasses(allClasses);
+    }
+  }
+  
+  
+
   const handleCellClick = (classId: number) => {
     const isAlreadyUnlocked = unlockedClasses.includes(classId);
     if (isClickable(classId)) {
@@ -134,7 +164,8 @@ const DegreeTable: React.FC = () => {
             <tr>
               <th scope="col"></th>
               {degrees.map((degree) => (
-                <th key={degree.degreeId}>{degree.degreeName}</th>
+                <th key={degree.degreeId}
+                  onClick={() => handleProgramClick(degree.degreeId)}>{degree.degreeName}</th>
               ))}
             </tr>
           </thead>
@@ -147,13 +178,12 @@ const DegreeTable: React.FC = () => {
                     {degree.quarters[rowIndex]?.classes.map((classItem) => (
                       <div
                         key={classItem.classId}
-                        className={`text-truncate ${
-                          unlockedClasses.includes(classItem.classId)
-                            ? 'bg-success text-white'
-                            : isClickable(classItem.classId)
+                        className={`text-truncate ${unlockedClasses.includes(classItem.classId)
+                          ? 'bg-success text-white'
+                          : isClickable(classItem.classId)
                             ? 'bg-white'
                             : 'bg-gray'
-                        } hover-effect`}
+                          } hover-effect`}
                         onClick={() => handleCellClick(classItem.classId)}
                       >
                         {findClassNameById(classItem.classId) || 'Class not found'}
