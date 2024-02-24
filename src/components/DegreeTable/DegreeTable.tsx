@@ -78,12 +78,24 @@ const DegreeTable: React.FC = () => {
   };
 
   const isClickable = (classId: number, quarter: number, degreeId: number): boolean => {
-    const degreeHasQuarter0 = degrees.find((degree) => degree.degreeId === degreeId)?.quarters.some((q) => q.quarter === 0);
+    // Check if the degree has quarter 0
+    const degree = degrees.find((degree) => degree.degreeId === degreeId);
+    const degreeHasQuarter0 = degree?.quarters.some((q) => q.quarter === 0);
 
+    // If the degree has quarter 0 and the current quarter is not 0, check if all quarter 0 classes are unlocked
     if (degreeHasQuarter0 && quarter !== 0) {
-      return false;
+      const quarter0Classes = degree?.quarters.find((q) => q.quarter === 0)?.classes;
+      const allQuarter0ClassesUnlocked = quarter0Classes?.every((c) => unlockedClasses.includes(c.classId)) ?? false;
+      if (allQuarter0ClassesUnlocked) {
+        const prerequisites = findPrerequisites(classId);
+        return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId));
+        // If all quarter 0 classes are unlocked, treat as normal clickable which depends on the class whether it has prerequisites
+      } else {
+        return false; // If not all quarter 0 classes are unlocked, lock the cells
+      }
     }
 
+    // Rest of the logic for determining if the cell is clickable
     const classItem = classes.find((item) => item.classId === classId);
     if (!classItem) {
       return false;
@@ -97,6 +109,7 @@ const DegreeTable: React.FC = () => {
     const prerequisites = findPrerequisites(classId);
     return prerequisites.every((prereqId) => unlockedClasses.includes(prereqId));
   };
+
 
   const handleProgramClick = (degreeId: number): void => {
     if (selectedDegree === degreeId) {

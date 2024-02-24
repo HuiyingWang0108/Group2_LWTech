@@ -160,9 +160,10 @@
         "degreeName": "Information Technology: Computing and Software Development, BAS",
         "quarters": 
         [
+           
             {
                 "quarter": 0,
-                "classes": [{"classId": 44, "sub": []},{"classId": 37, "sub": []},{"classId": 38, "sub": []},{"classId": 56, "sub": []},{"classId": 6, "sub": []}]
+                "classes": [{"classId": 44, "sub": []},{"classId": 37, "sub": []},{"classId": 38, "sub": []}]
             },
             {
                 "quarter": 1,
