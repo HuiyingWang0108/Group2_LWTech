@@ -195,7 +195,7 @@ const DegreeTable: React.FC = () => {
                       {degree.degreeName}
                       <Collapse in={selectedDegree === degree.degreeId && showCollapse}>
                         <div className="collapse">
-                          <h4>Prerequisites for {degree.degreeName}:</h4>
+                          {/* <h4>Prerequisites for {degree.degreeName}:</h4> */}
                           <ul>
                             {/* Render prerequisite classes here */}
                             {degree.quarters
@@ -220,33 +220,40 @@ const DegreeTable: React.FC = () => {
             </tr>
           </thead>
           <tbody style={{ height: '300px', overflowY: 'auto' }}>
-            {[...Array(12)].map((_, rowIndex) => (
-              <tr key={rowIndex}>
-                <td>{rowIndex + 1}</td>
+            {[...Array(13)].map((_, quarterIndex) => (
+              <tr key={quarterIndex}>
+                <td>{quarterIndex === 0 ? 'Prerequisites:' : "quarter "+quarterIndex}</td>
                 {degrees.map((degree) => (
-                  <td key={degree.degreeId}>
-                    {degree.quarters[rowIndex]?.classes.map((classItem) => (
-                      <div
-                        key={classItem.classId}
-                        className={`text-truncate ${unlockedClasses.includes(classItem.classId)
-                          ? 'bg-success text-white'
-                          : isClickable(classItem.classId)
-                            ? 'bg-white'
-                            : 'bg-gray'
-                          } hover-effect`}
-                        onClick={() => handleCellClick(classItem.classId)}
-                      >
-                        {findClassNameById(classItem.classId) || 'Class not found'}
-                        <div className="hover-window">
-                          <span className="text-danger">{getClassPrerequisitesText(classItem.classId)}</span>
+                  <td key={`${degree.degreeId}-${quarterIndex}`}>
+                    {degree.quarters.find((quarter) => quarter.quarter === quarterIndex)?.classes ? (
+                      // Render classes if they exist for the current quarter of the degree
+                      degree.quarters.find((quarter) => quarter.quarter === quarterIndex)?.classes.map((classItem) => (
+                        <div
+                          key={classItem.classId}
+                          className={`text-truncate ${unlockedClasses.includes(classItem.classId)
+                            ? 'bg-success text-white'
+                            : isClickable(classItem.classId)
+                              ? 'bg-white'
+                              : 'bg-gray'
+                            } hover-effect`}
+                          onClick={() => handleCellClick(classItem.classId)}
+                        >
+                          {findClassNameById(classItem.classId) || 'Class not found'}
+                          <div className="hover-window">
+                            <span className="text-danger">{getClassPrerequisitesText(classItem.classId)}</span>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))
+                    ) : (
+                      // Render blank cell if there are no classes for the current quarter of the degree
+                      <div className="text-truncate"></div>
+                    )}
                   </td>
                 ))}
               </tr>
             ))}
           </tbody>
+
         </table>
       </div>
     </div>
