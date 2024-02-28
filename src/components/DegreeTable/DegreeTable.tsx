@@ -120,6 +120,34 @@ const DegreeTable: React.FC = () => {
     }
   };
 
+  // const handleCellClick = (classId: number, quarter: number, degreeId: number) => {
+  //   const isAlreadyUnlocked = unlockedClasses.includes(classId);
+  //   if (isClickable(classId, quarter, degreeId)) {
+  //     if (isAlreadyUnlocked) {
+  //       const dependents = degrees.flatMap((degree) =>
+  //         degree.quarters.flatMap((q) =>
+  //           q.classes.filter((c) => findPrerequisites(c.classId).includes(classId))
+  //         )
+  //       );
+  //       const dependentAlreadyUnlocked = dependents.some((c) =>
+  //         unlockedClasses.includes(c.classId)
+  //       );
+  //       if (dependentAlreadyUnlocked) {
+          // alert('Cannot unclick this class because it is a prerequisite for other classes that are already selected.');
+          // return;
+  //       }
+  //     }
+  //     if (isAlreadyUnlocked) {
+  //       setUnlockedClasses((prevUnlocked) => prevUnlocked.filter((id) => id !== classId));
+  //     } else {
+  //       setUnlockedClasses((prevUnlocked) => [...prevUnlocked, classId]);
+  //     }
+  //   } else {
+  //     const removedClasses = findPrerequisites(classId).concat(classId);
+  //     setUnlockedClasses((prevUnlocked) => prevUnlocked.filter((id) => !removedClasses.includes(id)));
+  //   }
+  //   setSelectedClass(classId);
+  // };
   const handleCellClick = (classId: number, quarter: number, degreeId: number) => {
     const isAlreadyUnlocked = unlockedClasses.includes(classId);
     if (isClickable(classId, quarter, degreeId)) {
@@ -129,12 +157,13 @@ const DegreeTable: React.FC = () => {
             q.classes.filter((c) => findPrerequisites(c.classId).includes(classId))
           )
         );
-        const dependentAlreadyUnlocked = dependents.some((c) =>
-          unlockedClasses.includes(c.classId)
+        const dependentIds = dependents.map((c) => c.classId);
+        const dependentAlreadyUnlocked = dependentIds.some((id) =>
+          unlockedClasses.includes(id)
         );
         if (dependentAlreadyUnlocked) {
-          alert('Cannot unclick this class because it is a prerequisite for other classes that are already selected.');
-          return;
+          const removedClasses = dependentIds.concat(classId);
+          setUnlockedClasses((prevUnlocked) => prevUnlocked.filter((id) => !removedClasses.includes(id)));
         }
       }
       if (isAlreadyUnlocked) {
@@ -148,6 +177,7 @@ const DegreeTable: React.FC = () => {
     }
     setSelectedClass(classId);
   };
+  
 
   const getClassPrerequisitesText = (classId: number): string => {
     const prerequisites = findPrerequisites(classId);
