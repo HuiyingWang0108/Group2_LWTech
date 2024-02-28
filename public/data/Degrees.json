@@ -163,7 +163,9 @@
            
             {
                 "quarter": 0,
-                "classes": [{"classId": 44, "sub": []},{"classId": 37, "sub": []},{"classId": 38, "sub": []}]
+                "//": [{"classId": 44, "sub": []},{"classId": 37, "sub": []},{"classId": 38, "sub": []}],
+                "classes": [{"classId": 44, "sub": []},{"classId": 37, "sub": []},{"classId": 38, "sub": []},{"classId": 56, "sub": []},{"classId": 6, "sub": []}]
+
             },
             {
                 "quarter": 1,
