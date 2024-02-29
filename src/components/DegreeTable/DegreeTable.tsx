@@ -15,6 +15,7 @@ const DegreeTable: React.FC = () => {
   const [unlockedClasses, setUnlockedClasses] = useState<number[]>([]);
   const [selectedDegree, setSelectedDegree] = useState<number | null>(null);
   const [showCollapse, setShowCollapse] = useState(false); // State to control collapse visibility
+  const [selectAllLockedForDegree5, setSelectAllLockedForDegree5] = useState(false); // State to track select all lock/unlock status for degreeId 5
 
   useEffect(() => {
     const fetchData = async () => {
@@ -133,8 +134,8 @@ const DegreeTable: React.FC = () => {
   //         unlockedClasses.includes(c.classId)
   //       );
   //       if (dependentAlreadyUnlocked) {
-          // alert('Cannot unclick this class because it is a prerequisite for other classes that are already selected.');
-          // return;
+  // alert('Cannot unclick this class because it is a prerequisite for other classes that are already selected.');
+  // return;
   //       }
   //     }
   //     if (isAlreadyUnlocked) {
@@ -177,7 +178,7 @@ const DegreeTable: React.FC = () => {
     }
     setSelectedClass(classId);
   };
-  
+
 
   const getClassPrerequisitesText = (classId: number): string => {
     const prerequisites = findPrerequisites(classId);
@@ -185,6 +186,26 @@ const DegreeTable: React.FC = () => {
     const missingPrerequisitesText = missingPrerequisites.map((prereqId) => findClassNameById(prereqId)).join(', ');
     return missingPrerequisitesText;
   };
+
+  const handleLockUnlockAll = () => {
+    if (!selectAllLockedForDegree5) {
+      // If select all is locked, unlock all classes for degreeId 5
+      const allClassIdsForDegree5 = degrees
+        .filter((degree) => degree.degreeId === 5)
+        .flatMap((degree) => degree.quarters)
+        .flatMap((quarter) => quarter.classes)
+        .flatMap((classWithSub) => classWithSub.classId); // Assuming sub contains classId
+      setUnlockedClasses(allClassIdsForDegree5);
+    } else {
+      // If select all is unlocked, lock all classes for degreeId 5
+      setUnlockedClasses([]);
+    }
+    setSelectAllLockedForDegree5(!selectAllLockedForDegree5); // Toggle select all status for degreeId 5
+  };
+  
+  
+  
+  
 
   return (
     <div className="container mt-5">
@@ -218,10 +239,20 @@ const DegreeTable: React.FC = () => {
                       {degree.degreeName}
                     </div>
                   )}
+                  {/* Render the checkbox for locking/unlocking all classes only if degreeId is 5 */}
+                  {degree.degreeId === 5 && (
+                    <input
+                      type="checkbox"
+                      checked={selectAllLockedForDegree5}
+                      onChange={handleLockUnlockAll}
+                    />
+                  )}
                 </th>
               ))}
             </tr>
           </thead>
+
+
           <tbody style={{ height: '300px', overflowY: 'auto' }}>
             {[...Array(13)].map((_, quarterIndex) => (
               <tr key={quarterIndex}>
