@@ -40,3 +40,11 @@ th {
 .gray {
     background-color: gray;
 }
+
+.tooltip {
+    position: absolute;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 5px;
+    z-index: 1;
+}
